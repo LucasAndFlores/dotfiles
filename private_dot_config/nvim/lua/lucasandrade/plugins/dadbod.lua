@@ -1,9 +1,9 @@
 return {
-  'kristijanhusak/vim-dadbod-ui',
-  dependencies = {
-    { 'tpope/vim-dadbod', lazy = true },
-    { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
-  },
+    'kristijanhusak/vim-dadbod-ui',
+    dependencies = {
+        { 'tpope/vim-dadbod',                     lazy = true },
+        { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
+    },
     config = function()
         local cmp = require "cmp"
         -- Setup up vim-dadbod
@@ -15,10 +15,10 @@ return {
         })
 
         vim.api.nvim_create_autocmd('FileType', {
-          pattern = { 'dbout' },
-          callback = function()
-            vim.opt.foldenable = false
-          end,
+            pattern = { 'dbout' },
+            callback = function()
+                vim.opt.foldenable = false
+            end,
         })
 
         vim.g.db_ui_use_nerd_fonts = 1
