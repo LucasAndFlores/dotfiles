@@ -117,3 +117,4 @@ if [ -f '/home/lucasaf/google-cloud-sdk/path.zsh.inc' ]; then . '/home/lucasaf/g
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/lucasaf/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/lucasaf/google-cloud-sdk/completion.zsh.inc'; fi
+source /usr/share/nvm/init-nvm.sh
