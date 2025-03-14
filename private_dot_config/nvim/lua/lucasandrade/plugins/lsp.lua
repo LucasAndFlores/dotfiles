@@ -112,6 +112,7 @@ return {
         vim.keymap.set("n", "gi", telescope.lsp_implementations, { desc = "Go to Implementation" })
         vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
         vim.keymap.set("n", "gr", telescope.lsp_references, { desc = "Symbol References" })
+        vim.keymap.set("n", "fw", telescope.grep_string, { desc = "Grep string" })
         vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to Next Diagnostic" })
         vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Open Diagnostic Float" })
         vim.keymap.set("n", "]d", vim.diagnostic.goto_next,
