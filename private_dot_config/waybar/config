@@ -38,12 +38,14 @@
       "window-rewrite-default": " ",
       "window-rewrite": {
         "chrome": " ",
-        "class<kitty>": " ",
-        "class<kitty> title<.*nvim.*>": " ",
+        "class<alacritty>": " ",
+        "class<alacritty> title<.*nvim.*>": " ",
         "code": "󰨞 ",
         "slack": " ",
         "spotify": " ",
+        "Youtube Music": "󰗃 ",
         "firefox": "󰈹 ",
+        "Zen Browser": "󰈹 ",
     	},
     },
     "mpd": {
@@ -142,7 +144,7 @@
     "wireplumber": {
     "format": "{volume}% {icon}",
     "format-muted": "",
-    "on-click": "helvum",
+    "on-click": "pavucontrol",
     "format-icons": ["", " ", " "]
     },      
     "pulseaudio": {
