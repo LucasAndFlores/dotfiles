@@ -20,9 +20,9 @@ return {
 		-- Define your formatters
 		formatters_by_ft = {
 			lua = { "stylua" },
-			javascript = { "prettierd", "prettier" },
+			--javascript = { "prettierd", "prettier" },
 			go = { "gofmt", "goimports" },
-			yaml = { "yamlfmt" },
+			--yaml = { "yamlfmt" },
 			--["*"] = { "typos" },
 		},
 		-- Set default options

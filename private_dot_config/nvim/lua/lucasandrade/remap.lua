@@ -10,11 +10,11 @@ vim.opt.expandtab = true
 vim.opt.softtabstop = 0
 
 -- Enable mouse support
-vim.opt.mouse = 'a'
+vim.opt.mouse = "a"
 
 -- Visualize certain characters
 vim.opt.list = true
-vim.opt.listchars = { tab = '▸·' }
+vim.opt.listchars = { tab = "▸·" }
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")

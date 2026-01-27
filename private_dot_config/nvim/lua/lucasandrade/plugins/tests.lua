@@ -1,5 +1,4 @@
 return {
-
 	-- Neotest setup
 	{
 		"nvim-neotest/neotest",
@@ -8,11 +7,8 @@ return {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
 			"antoinemadec/FixCursorHold.nvim",
-			"nvim-treesitter/nvim-treesitter",
-
 			"nvim-neotest/neotest-plenary",
 			"nvim-neotest/neotest-vim-test",
-
 			{
 				"fredrikaverpil/neotest-golang",
 				dependencies = {
@@ -27,22 +23,17 @@ return {
 		opts = function(_, opts)
 			opts.adapters = opts.adapters or {}
 			opts.adapters["neotest-golang"] = {
-				-- standard way to configure go tests from the neotest-golang
-				--go_test_args = {
-				--    "-v", -- necessary for neotest-golang
-				--    "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
-				--},
-				-- this command follows the integration test standard
 				go_test_args = {
 					"-v", -- necessary for neotest-golang
+					"--json",
 					"-timeout=60s",
-					"-covermode=atomic",
 					"-coverpkg=./...",
 					"-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
 					"./...",
 					"-p=1",
 					"-count=1",
 				},
+				warn_test_name_dupes = false,
 			}
 			opts.status = { virtual_text = true }
 			opts.discovery = {
@@ -152,7 +143,14 @@ return {
 			{
 				"<leader>to",
 				function()
-					require("neotest").output.open({ enter = true, auto_close = false, last_run = true })
+					require("neotest").output.open({
+						enter = true,
+						auto_close = false,
+						last_run = true,
+						open_win = function()
+							vim.cmd.vsplit()
+						end,
+					})
 				end,
 				desc = "[t]est [o]output",
 			},
