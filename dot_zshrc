@@ -6,6 +6,9 @@ export ZOXIDE_CMD_OVERRIDE="cd"
 
 export PATH="$HOME/google-cloud-sdk/bin:$PATH"
 # Path to your Oh My Zsh installation.
+# Poetry Python
+export PATH="$HOME/.local/bin:$PATH"
+export PATH=$PATH:$(go env GOPATH)/bin
 export ZSH="$HOME/.oh-my-zsh"
 eval "$(zoxide init zsh)"
 # Set name of the theme to load --- if set to "random", it will
@@ -121,3 +124,33 @@ if [ -f '/home/lucasaf/google-cloud-sdk/path.zsh.inc' ]; then . '/home/lucasaf/g
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/lucasaf/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/lucasaf/google-cloud-sdk/completion.zsh.inc'; fi
+
+kdiff() {
+    if [ $# -lt 2 ]; then
+        echo "Usage: kdiff <context_id> <deployment-path> [additional-kubectl-args...]"
+        echo "Example: kdiff eu-01 deployments/iocmq"
+        return 1
+    fi
+
+    local context_id=$1
+    local deployment_path=$2
+    shift 2  # Remove first two arguments
+
+    kubectl --context="$context_id" diff -k "${deployment_path}/deployment_id/${context_id}" "$@" | colordiff
+}
+
+tagdiff() {
+    if [ $# -lt 1 ]; then
+        echo "Usage: just use the tag you want to see the difference in all deployment_ids, for example retail-v3-mgmt-api"
+        echo "Example: tagdiff retail-v3-mgmt-api"
+        return 1
+    fi
+
+    for dir in */; do
+     if [ -d "$dir" ]; then
+        echo "Entering directory: $dir"
+        (cd "$dir" && kubectl kustomize . | grep "$1:")
+        echo "Leaving directory: $dir"
+      fi
+    done
+}
