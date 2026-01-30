@@ -1,0 +1,64 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+    padding = { x = 2, y = 2 }
+
+[font]
+size = 13
+
+  [font.normal]
+  family = "Hack Nerd Font"
+  style = "Regular"
+
+  [font.bold]
+  family = "Hack Nerd Font"
+  style = "Bold"
+
+  [font.italic]
+  family = "Hack Nerd Font"
+  style = "Italic"
+
+[colors]
+  # Primary colors
+  [colors.primary]
+  background = '#32302f'
+  foreground = '#ebdbb2'
+
+  # Cursor colors
+  [colors.cursor]
+  text = '#665c54'
+  cursor = '#bdae93'
+
+  # Selection colors
+  [colors.selection]
+  text = '#ebdbb2'
+  background = '#d65d0e'
+
+  # Normal colors
+  [colors.normal]
+  black = '#3c3836'
+  red = '#cc241d'
+  green = '#98971a'
+  yellow = '#d79921'
+  blue = '#458588'
+  magenta = '#b16286'
+  cyan = '#689d6a'
+  white = '#a89984'
+
+  # Bright colors
+  [colors.bright]
+  black = '#928374'
+  red = '#fb4934'
+  green = '#b8bb26'
+  yellow = '#fabd2f'
+  blue = '#83a598'
+  magenta = '#d3869b'
+  cyan = '#8ec07c'
+  white = '#fbf1c7'
+
+[cursor]
+    style = 'Block'
+
+[mouse]
+    hide_when_typing = true
