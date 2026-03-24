@@ -4,8 +4,8 @@ return {
 	opts = {
 		interactions = {
 			chat = {
-				adapter = "gemini_cli",
-				model = "gemini-pro",
+				adapter = "opencode",
+				model = "anthropic/claude-sonet-4.6",
 			},
 		},
 	},

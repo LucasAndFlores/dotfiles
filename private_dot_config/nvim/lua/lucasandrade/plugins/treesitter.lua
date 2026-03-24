@@ -10,7 +10,7 @@ return {
 		lazy = false,
 		branch = "main",
 		build = ":TSUpdate",
-		init = function()
+		config = function()
 			local parser_installed = {
 				"c",
 				"lua",
@@ -24,16 +24,13 @@ return {
 				"typescript",
 				"go",
 				"sql",
-				"make",
 				"yaml",
 				"terraform",
 				"http",
+				"json",
 			}
 
-			vim.defer_fn(function()
-				require("nvim-treesitter").install(parser_installed)
-			end, 1000)
-			require("nvim-treesitter").update()
+			require("nvim-treesitter").install(parser_installed)
 
 			-- auto-start highlights & indentation
 			vim.api.nvim_create_autocmd("FileType", {
