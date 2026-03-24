@@ -62,3 +62,8 @@ size = 13
 
 [mouse]
     hide_when_typing = true
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u000d" # This sends a Carriage Return (Enter)
