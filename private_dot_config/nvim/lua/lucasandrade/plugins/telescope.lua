@@ -29,5 +29,21 @@ return {
 				require("telescope.builtin").buffers()
 			end,
 		},
+		{
+			"<leader>fs",
+			function()
+				-- Get the visually selected text
+				local saved_reg = vim.fn.getreg("v")
+				vim.cmd('noau normal! "vy"')
+				local selection = vim.fn.getreg("v")
+				vim.fn.setreg("v", saved_reg)
+
+				-- Strip newlines in case of multi-line selection
+				selection = selection:gsub("\n", "")
+
+				require("telescope.builtin").grep_string({ search = selection })
+			end,
+			mode = "v",
+		},
 	},
 }
