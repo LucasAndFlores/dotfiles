@@ -34,19 +34,21 @@
         }
     },
     "hyprland/workspaces": {
-      "format": "{windows} {name}",
-      "window-rewrite-default": " ",
-      "window-rewrite": {
-        "chrome": " ",
-        "class<alacritty>": " ",
-        "class<alacritty> title<.*nvim.*>": " ",
-        "code": "󰨞 ",
-        "slack": " ",
-        "spotify": " ",
-        "Youtube Music": "󰗃 ",
-        "firefox": "󰈹 ",
-        "Zen Browser": "󰈹 ",
-    	},
+        "format": "{windows} {name}",
+        "window-rewrite-default": " ",
+        "window-rewrite": {
+            "chrome": " ",
+            "class<alacritty>": " ",
+            "class<foot>": " ",
+            "class<alacritty> title<.*nvim.*>": " ",
+            "code": "󰨞 ",
+            "slack": " ",
+            "spotify": " ",
+            "Youtube Music": "󰗃 ",
+            "firefox": "󰈹 ",
+            "Zen Browser": "󰈹 ",
+            "Vivaldi": " ",
+        },
     },
     "mpd": {
         "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
@@ -97,12 +99,26 @@
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": [
+            "",
+            "",
+            ""
+        ]
     },
     "backlight": {
         // "device": "acpi_video1",
         "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
     },
     "battery": {
         "states": {
@@ -117,21 +133,27 @@
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": [" ", " ", " ", " ", " "]
+        "format-icons": [
+            " ",
+            " ",
+            " ",
+            " ",
+            " "
+        ]
     },
     "battery#bat2": {
         "bat": "BAT2"
     },
     "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-      "tooltip": true,
-      "format-icons": {
-        "default": "",
-        "performance": "",
-        "balanced": "",
-        "power-saver": ""
-      }
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
@@ -143,11 +165,15 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "wireplumber": {
-    "format": "{volume}% {icon}",
-    "format-muted": "",
-    "on-click": "pavucontrol",
-    "format-icons": ["", " ", " "]
-    },      
+        "format": "{volume}% {icon}",
+        "format-muted": "",
+        "on-click": "pavucontrol",
+        "format-icons": [
+            "",
+            " ",
+            " "
+        ]
+    },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": " {volume}% {icon}  {format_source}",
@@ -163,37 +189,41 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": [
+                "",
+                "",
+                ""
+            ]
         },
         "on-click": "pavucontrol"
     },
     "custom/power": {
-        "format" : "⏻ ",
+        "format": "⏻ ",
         "on-click": "wlogout",
     },
     "bluetooth": {
-	"format": " {status}",
-	"format-connected": " 󰂱 ",
-	"format-connected-battery": " 󰂱 {device_battery_percentage}% ",
-	// "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
-	"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "format": " {status}",
+        "format-connected": " 󰂱 ",
+        "format-connected-battery": " 󰂱 {device_battery_percentage}% ",
+        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
         "on-click": "blueman-manager"
     },
     "custom/notification": {
         "tooltip": false,
         "format": "{} {icon}",
         "format-icons": {
-          "notification": " <span foreground='red'><sup></sup></span>",
-          "none": " ",
-          "dnd-notification": " <span foreground='red'><sup></sup></span>",
-          "dnd-none": " ",
-          "inhibited-notification": " <span foreground='red'><sup></sup></span>",
-          "inhibited-none": " ",
-          "dnd-inhibited-notification": "  <span foreground='red'><sup></sup></span>",
-          "dnd-inhibited-none": "  "
+            "notification": " <span foreground='red'><sup></sup></span>",
+            "none": " ",
+            "dnd-notification": " <span foreground='red'><sup></sup></span>",
+            "dnd-none": " ",
+            "inhibited-notification": " <span foreground='red'><sup></sup></span>",
+            "inhibited-none": " ",
+            "dnd-inhibited-notification": "  <span foreground='red'><sup></sup></span>",
+            "dnd-inhibited-none": "  "
         },
         "return-type": "json",
         "exec-if": "which swaync-client",
@@ -201,5 +231,5 @@
         "on-click": "swaync-client -t -sw",
         "on-click-right": "swaync-client -d -sw",
         "escape": true
-    }     
+    }
 }
