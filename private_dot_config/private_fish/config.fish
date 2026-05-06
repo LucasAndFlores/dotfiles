@@ -13,6 +13,11 @@ set -gx GH_USERNAME lucasandradeflores
 # set -gx GH_TOKEN <your-token>
 set -gx EDITOR nvim
 
+# Android SDK
+set -gx ANDROID_HOME $HOME/Android/Sdk
+fish_add_path $ANDROID_HOME/emulator
+fish_add_path $ANDROID_HOME/platform-tools
+
 # PATH — fish_add_path avoids duplicates and persists across sessions
 fish_add_path $HOME/google-cloud-sdk/bin
 fish_add_path $HOME/.local/bin
