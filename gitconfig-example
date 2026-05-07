@@ -1,0 +1,32 @@
+[url "https://lucasandradeflores:<token>"]
+	insteadOf = https://github.com
+[includeIf "gitdir:~/.local/share/chezmoi/"]
+    path = .gitconfig_dotfiles
+[includeIf "gitdir:~/Desktop/"]
+    path = .gitconfig_work
+[rerere]
+[init]
+	defaultBranch = main
+[fetch]
+	prune = true
+
+.gitconfig_work: 
+[user]
+	name = lucasandradeflores
+	email = <email>
+        signingkey = <key_path>
+
+[core]
+        sshCommand = <key_path>
+
+[url "git@github.com:"]
+        insteadOf = https://github.com
+
+.gitconfig_dotfiles:
+[user]
+	email = <email>
+        name = Lucas Andrade
+        signingkey = <key_path>
+
+[core]
+        sshCommand = <key_path>
