@@ -12,9 +12,21 @@ set -gx ZOXIDE_CMD_OVERRIDE cd
 # set -gx GH_TOKEN <your-token>
 set -gx EDITOR nvim
 
+set -gx AWS_REGION us-east-1
+set -gx AWS_PROFILE saml
+
+## gcloud variables
+set -x CLAUDE_CODE_USE_VERTEX 1
+set -x CLOUD_ML_REGION global
+set -x ANTHROPIC_VERTEX_PROJECT_ID itpc-gcp-hcm-pe-eng-claude
+
+## Go variables
+set -x GOPATH ~/go
+set -x PATH $GOPATH/bin $PATH
+
 # PATH — fish_add_path avoids duplicates and persists across sessions
 #fish_add_path $HOME/google-cloud-sdk/bin
-#fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.local/bin
 #fish_add_path (go env GOPATH)/bin
 #fish_add_path $HOME/.local/share/nvm/v24.14.0/bin
 nvm use lts --silent
