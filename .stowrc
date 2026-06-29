@@ -1,3 +1,5 @@
 --verbose
 --target=~/.config
 --ignore=.stowrc
+--ignore=tmux
+--ignore=starship
