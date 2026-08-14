@@ -8,22 +8,36 @@ end
 set -gx XDG_RUNTIME_DIR /run/user/(id -u)
 set -gx DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus"
 set -gx ZOXIDE_CMD_OVERRIDE cd
-set -gx GH_USERNAME lucasandradeflores
 # GH_TOKEN: set this here or via `set -Ux GH_TOKEN <value>` to persist universally
 # set -gx GH_TOKEN <your-token>
 set -gx EDITOR nvim
 
-# Android SDK
-set -gx ANDROID_HOME $HOME/Android/Sdk
-fish_add_path $ANDROID_HOME/emulator
-fish_add_path $ANDROID_HOME/platform-tools
+set -gx AWS_REGION us-east-1
+set -gx AWS_PROFILE saml
+
+## gcloud variables
+set -x CLAUDE_CODE_USE_VERTEX 1
+set -x CLOUD_ML_REGION global
+set -x ANTHROPIC_VERTEX_PROJECT_ID itpc-gcp-hcm-pe-eng-claude
+
+## Go variables
+set -x GOPATH ~/go
+set -x PATH $GOPATH/bin $PATH
 
 # PATH — fish_add_path avoids duplicates and persists across sessions
-fish_add_path $HOME/google-cloud-sdk/bin
+#fish_add_path $HOME/google-cloud-sdk/bin
 fish_add_path $HOME/.local/bin
-fish_add_path (go env GOPATH)/bin
-fish_add_path $HOME/.local/share/nvm/v24.14.0/bin
+#fish_add_path (go env GOPATH)/bin
+#fish_add_path $HOME/.local/share/nvm/v24.14.0/bin
 nvm use lts --silent
+
+# fish shell
+set -x ANDROID_HOME $HOME/android
+set -Ux ANDROID_HOME $HOME/android
+set -Ux ANDROID_SDK_ROOT $ANDROID_HOME
+fish_add_path $ANDROID_HOME/cmdline-tools/latest/bin
+fish_add_path $ANDROID_HOME/platform-tools
+fish_add_path $ANDROID_HOME/emulator
 
 # Google Cloud SDK — source fish-specific path/completion if available
 if test -f $HOME/google-cloud-sdk/path.fish.inc
