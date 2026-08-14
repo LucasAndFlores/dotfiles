@@ -1,187 +1,187 @@
 return {
-	-- Neotest setup
-	{
-		"nvim-neotest/neotest",
-		event = "VeryLazy",
-		dependencies = {
-			"nvim-neotest/nvim-nio",
-			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
-			"nvim-neotest/neotest-plenary",
-			"nvim-neotest/neotest-vim-test",
-			{
-				"fredrikaverpil/neotest-golang",
-				dependencies = {
-					{
-						"leoluz/nvim-dap-go",
-						opts = {},
-					},
-				},
-				branch = "main",
-			},
-		},
-		opts = function(_, opts)
-			opts.adapters = opts.adapters or {}
-			opts.adapters["neotest-golang"] = {
-				go_test_args = {
-					"-v", -- necessary for neotest-golang
-					"--json",
-					"-timeout=60s",
-					"-coverpkg=./...",
-					"-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
-					"./...",
-					"-p=1",
-					"-count=1",
-				},
-				warn_test_name_dupes = false,
-			}
-			opts.status = { virtual_text = true }
-			opts.discovery = {
-				-- See all config options with :h neotest.Config
-				discovery = {
-					-- Drastically improve performance in ginormous projects by
-					-- only AST-parsing the currently opened buffer.
-					enabled = true,
-					-- Number of workers to parse files concurrently.
-					-- A value of 0 automatically assigns number based on CPU.
-					-- Set to 1 if experiencing lag.
-					concurrent = 1,
-				},
-				running = {
-					-- Run tests concurrently when an adapter provides multiple commands to run.
-					concurrent = false,
-				},
-				summary = {
-					-- Enable/disable animation of icons.
-					animated = true,
-				},
-				log_level = vim.log.levels.WARN, -- increase to DEBUG when troubleshooting
-			}
-		end,
-		config = function(_, opts)
-			if opts.adapters then
-				local adapters = {}
-				for name, config in pairs(opts.adapters or {}) do
-					if type(name) == "number" then
-						if type(config) == "string" then
-							config = require(config)
-						end
-						adapters[#adapters + 1] = config
-					elseif config ~= false then
-						local adapter = require(name)
-						if type(config) == "table" and not vim.tbl_isempty(config) then
-							local meta = getmetatable(adapter)
-							if adapter.setup then
-								adapter.setup(config)
-							elseif adapter.adapter then
-								adapter.adapter(config)
-								adapter = adapter.adapter
-							elseif meta and meta.__call then
-								adapter(config)
-							else
-								error("Adapter " .. name .. " does not support setup")
-							end
-						end
-						adapters[#adapters + 1] = adapter
-					end
-				end
-				opts.adapters = adapters
-			end
+    -- Neotest setup
+    {
+        "nvim-neotest/neotest",
+        event = "VeryLazy",
+        dependencies = {
+            "nvim-neotest/nvim-nio",
+            "nvim-lua/plenary.nvim",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-neotest/neotest-plenary",
+            "nvim-neotest/neotest-vim-test",
+            {
+                "fredrikaverpil/neotest-golang",
+                dependencies = {
+                    {
+                        "leoluz/nvim-dap-go",
+                        opts = {},
+                    },
+                },
+                branch = "main",
+            },
+        },
+        opts = function(_, opts)
+            opts.adapters = opts.adapters or {}
+            opts.adapters["neotest-golang"] = {
+                go_test_args = {
+                    "-v", -- necessary for neotest-golang
+                    "--json",
+                    "-timeout=60s",
+                    "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
+                    --"-coverpkg=./...",
+                    --"./...",
+                    "-p=1",
+                    "-count=1",
+                },
+                warn_test_name_dupes = false,
+            }
+            opts.status = { virtual_text = true }
+            opts.discovery = {
+                -- See all config options with :h neotest.Config
+                discovery = {
+                    -- Drastically improve performance in ginormous projects by
+                    -- only AST-parsing the currently opened buffer.
+                    enabled = true,
+                    -- Number of workers to parse files concurrently.
+                    -- A value of 0 automatically assigns number based on CPU.
+                    -- Set to 1 if experiencing lag.
+                    concurrent = 1,
+                },
+                running = {
+                    -- Run tests concurrently when an adapter provides multiple commands to run.
+                    concurrent = false,
+                },
+                summary = {
+                    -- Enable/disable animation of icons.
+                    animated = false,
+                },
+                log_level = vim.log.levels.WARN, -- increase to DEBUG when troubleshooting
+            }
+        end,
+        config = function(_, opts)
+            if opts.adapters then
+                local adapters = {}
+                for name, config in pairs(opts.adapters or {}) do
+                    if type(name) == "number" then
+                        if type(config) == "string" then
+                            config = require(config)
+                        end
+                        adapters[#adapters + 1] = config
+                    elseif config ~= false then
+                        local adapter = require(name)
+                        if type(config) == "table" and not vim.tbl_isempty(config) then
+                            local meta = getmetatable(adapter)
+                            if adapter.setup then
+                                adapter.setup(config)
+                            elseif adapter.adapter then
+                                adapter.adapter(config)
+                                adapter = adapter.adapter
+                            elseif meta and meta.__call then
+                                adapter(config)
+                            else
+                                error("Adapter " .. name .. " does not support setup")
+                            end
+                        end
+                        adapters[#adapters + 1] = adapter
+                    end
+                end
+                opts.adapters = adapters
+            end
 
-			require("neotest").setup(opts)
-		end,
-		keys = {
-			{
-				"<leader>ta",
-				function()
-					require("neotest").run.attach()
-				end,
-				desc = "[t]est [a]ttach",
-			},
-			{
-				"<leader>tf",
-				function()
-					require("neotest").run.run(vim.fn.expand("%"))
-				end,
-				desc = "[t]est run [f]ile",
-			},
-			{
-				"<leader>tA",
-				function()
-					require("neotest").run.run(vim.uv.cwd())
-				end,
-				desc = "[t]est [A]ll files",
-			},
-			{
-				"<leader>tS",
-				function()
-					require("neotest").run.run({ suite = true })
-				end,
-				desc = "[t]est [S]uite",
-			},
-			{
-				"<leader>tn",
-				function()
-					require("neotest").run.run()
-				end,
-				desc = "[t]est [n]earest",
-			},
-			{
-				"<leader>tl",
-				function()
-					require("neotest").run.run_last()
-				end,
-				desc = "[t]est [l]ast",
-			},
-			{
-				"<leader>ts",
-				function()
-					require("neotest").summary.toggle()
-				end,
-				desc = "[t]est [s]ummary",
-			},
-			{
-				"<leader>to",
-				function()
-					require("neotest").output.open({
-						enter = true,
-						auto_close = false,
-						last_run = true,
-						open_win = function()
-							vim.cmd.vsplit()
-						end,
-					})
-				end,
-				desc = "[t]est [o]output",
-			},
-			{
-				"<leader>tO",
-				function()
-					require("neotest").output_panel.toggle()
-				end,
-				desc = "[t]est [O]output panel",
-			},
-			{
-				"<leader>tt",
-				function()
-					require("neotest").run.stop()
-				end,
-				desc = "[t]est [t]erminate",
-			},
-			{
-				"<leader>td",
-				function()
-					require("neotest").run.run({ suite = false, strategy = "dap" })
-				end,
-				desc = "Debug nearest test",
-			},
-			{
-				"<leader>tD",
-				function()
-					require("neotest").run.run({ vim.fn.expand("%"), strategy = "dap" })
-				end,
-				desc = "Debug current file",
-			},
-		},
-	},
+            require("neotest").setup(opts)
+        end,
+        keys = {
+            {
+                "<leader>ta",
+                function()
+                    require("neotest").run.attach()
+                end,
+                desc = "[t]est [a]ttach",
+            },
+            {
+                "<leader>tf",
+                function()
+                    require("neotest").run.run(vim.fn.expand("%"))
+                end,
+                desc = "[t]est run [f]ile",
+            },
+            {
+                "<leader>tA",
+                function()
+                    require("neotest").run.run(vim.uv.cwd())
+                end,
+                desc = "[t]est [A]ll files",
+            },
+            {
+                "<leader>tS",
+                function()
+                    require("neotest").run.run({ suite = true })
+                end,
+                desc = "[t]est [S]uite",
+            },
+            {
+                "<leader>tn",
+                function()
+                    require("neotest").run.run()
+                end,
+                desc = "[t]est [n]earest",
+            },
+            {
+                "<leader>tl",
+                function()
+                    require("neotest").run.run_last()
+                end,
+                desc = "[t]est [l]ast",
+            },
+            {
+                "<leader>ts",
+                function()
+                    require("neotest").summary.toggle()
+                end,
+                desc = "[t]est [s]ummary",
+            },
+            {
+                "<leader>to",
+                function()
+                    require("neotest").output.open({
+                        enter = true,
+                        auto_close = false,
+                        last_run = true,
+                        open_win = function()
+                            vim.cmd.vsplit()
+                        end,
+                    })
+                end,
+                desc = "[t]est [o]output",
+            },
+            {
+                "<leader>tO",
+                function()
+                    require("neotest").output_panel.toggle()
+                end,
+                desc = "[t]est [O]output panel",
+            },
+            {
+                "<leader>tt",
+                function()
+                    require("neotest").run.stop()
+                end,
+                desc = "[t]est [t]erminate",
+            },
+            {
+                "<leader>td",
+                function()
+                    require("neotest").run.run({ suite = false, strategy = "dap" })
+                end,
+                desc = "Debug nearest test",
+            },
+            {
+                "<leader>tD",
+                function()
+                    require("neotest").run.run({ vim.fn.expand("%"), strategy = "dap" })
+                end,
+                desc = "Debug current file",
+            },
+        },
+    },
 }
