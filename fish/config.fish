@@ -31,6 +31,14 @@ fish_add_path $HOME/.local/bin
 #fish_add_path $HOME/.local/share/nvm/v24.14.0/bin
 nvm use lts --silent
 
+# fish shell
+set -x ANDROID_HOME $HOME/android
+set -Ux ANDROID_HOME $HOME/android
+set -Ux ANDROID_SDK_ROOT $ANDROID_HOME
+fish_add_path $ANDROID_HOME/cmdline-tools/latest/bin
+fish_add_path $ANDROID_HOME/platform-tools
+fish_add_path $ANDROID_HOME/emulator
+
 # Google Cloud SDK — source fish-specific path/completion if available
 if test -f $HOME/google-cloud-sdk/path.fish.inc
     source $HOME/google-cloud-sdk/path.fish.inc
