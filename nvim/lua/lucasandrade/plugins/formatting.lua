@@ -12,6 +12,34 @@ return {
             mode = "",
             desc = "Format buffer",
         },
+        {
+            "<leader>jq",
+            function()
+                local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+                local result = vim.fn.systemlist("jq .", lines)
+                if vim.v.shell_error == 0 then
+                    vim.api.nvim_buf_set_lines(0, 0, -1, false, result)
+                else
+                    vim.notify(table.concat(result, "\n"), vim.log.levels.ERROR)
+                end
+            end,
+            mode = "",
+
+        },
+        {
+            "<leader>yq",
+            function()
+                local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+                local result = vim.fn.systemlist("yq .", lines)
+                if vim.v.shell_error == 0 then
+                    vim.api.nvim_buf_set_lines(0, 0, -1, false, result)
+                else
+                    vim.notify(table.concat(result, "\n"), vim.log.levels.ERROR)
+                end
+            end,
+            mode = "",
+
+        }
     },
     -- This will provide type hinting with LuaLS
     ---@module "conform"

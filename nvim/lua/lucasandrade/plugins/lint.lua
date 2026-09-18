@@ -10,16 +10,18 @@ return {
             go = { "golangcilint" }
         }
 
-        local function try_lint()
-            local bufname = vim.api.nvim_buf_get_name(0)
-            if bufname:match("/vendor/") then
-                return
-            end
-            lint.try_lint()
-        end
+        lint.try_lint()
 
-        vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-            callback = try_lint,
-        })
+        --local function try_lint()
+        --    local bufname = vim.api.nvim_buf_get_name(0)
+        --    if bufname:match("/vendor/") then
+        --        return
+        --    end
+        --    lint.try_lint()
+        --end
+
+        --vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+        --    callback = try_lint,
+        --})
     end
 }
